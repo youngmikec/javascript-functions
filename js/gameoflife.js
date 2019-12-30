@@ -95,11 +95,14 @@ const main = (pattern, iterations) => {
 };
 
 const [pattern, iterations] = process.argv.slice(2);
+const runAsScript = require.main === module;
 
-if (startPatterns[pattern] && !isNaN(parseInt(iterations))) {
-    main(pattern, parseInt(iterations));
-} else {
-    console.log('Usage: node js/gameoflife.js rpentomino 50');
+if (runAsScript) {
+    if (startPatterns[pattern] && !isNaN(parseInt(iterations))) {
+        main(pattern, parseInt(iterations));
+    } else {
+        console.log('Usage: node js/gameoflife.js rpentomino 50');
+    }
 }
 
 exports.seed = seed;

@@ -27,6 +27,16 @@ describe("Conway's Game of Life", () => {
       );
     });
 
+    it("Should have 2 function arguments. @same-arity", () => {
+      var sameNode;
+      esprima.parseModule(source, {}, function(node) {
+        if (node.id && node.id.name === "same") {
+          sameNode = node;
+        }
+      });
+      assert(sameNode.params.length === 2, "Have you created a `same` function with two arguments?");
+    });
+
     it("Should have a `same` function that tests if two points are the same. @same-function-comparison", () => {
       assert(gameoflife.same && 
         gameoflife.same([1, 2], [1, 2]),
@@ -177,19 +187,19 @@ describe("Conway's Game of Life", () => {
           cornersNode = node;
         }
       });
-      console.log(cornersNode.init.params[0].type == 'AssignmentPattern');
+      //console.log(cornersNode.init.params[0].type == 'AssignmentPattern');
     });
   });
 
-  describe('Calculating the next state', ()=>{
-    var start, next;
-    before(()=>{
-      start = gameoflife.seed([3,2], [2,3],[3,3],[3,4],[4,4]);
-      next = gameoflife.calculateNext(start);
-    });
+  // describe('Calculating the next state', ()=>{
+  //   var start, next;
+  //   before(()=>{
+  //     start = gameoflife.seed([3,2], [2,3],[3,3],[3,4],[4,4]);
+  //     next = gameoflife.calculateNext(start);
+  //   });
 
-    it('should calculate the correct next state. @calculateNext-correct-next-state', ()=>{
-      // todo
-    });
-  });
+  //   it('should calculate the correct next state. @calculateNext-correct-next-state', ()=>{
+  //     // todo
+  //   });
+  // });
 });
