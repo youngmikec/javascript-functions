@@ -4,7 +4,7 @@ In `gameoflife.js` add a function named `seed` that returns its arguments in an 
 
 ## Add a 'same' Function
 
-We need to be able to test if two cells are the same. Add a function named `same` that accepts two cells (a cell is represented as an array with two integer values) and returns a boolean indicating if the two cells are the same. Ensure that `same` is exported from the module.
+We need to be able to test if two cells are the same. Add a function named `same` that accepts two cells (a cell is represented as an array with two integer values) and returns a Boolean indicating if the two cells are the same. Ensure that `same` is exported from the module.
 
 ## Add a 'contains' Function
 
