@@ -157,18 +157,31 @@ describe("Conway's Game of Life", () => {
         "Have you implemented a corners function that returns the correct bottom left coordinate?"
       );
 
-    });
-
-    it("Should have a default parameter. @corners-has-default-parameter", ()=> {
       var cornersNode;
       esprima.parseModule(source, {}, function(node) {
-        if (node.type === "VariableDeclarator" && node.id.name === "corners") {
+        if ((node.type === "VariableDeclarator" || node.type === "FunctionDeclaration") && node.id && node.id.name === "corners") {
           cornersNode = node;
         }
       });
-      //console.log(cornersNode.init.params[0].type == 'AssignmentPattern');
+      assert((typeof cornersNode != "undefined") && (cornersNode.params || cornersNode.init.params)[0].type == 'AssignmentPattern', "Have you provided a default value for the 'corners' function parameter?");
     });
+
   });
+  
+  describe("Printing the game state", () => {
+    it("Should have a printCells function. @printCells-function", () => {
+      assert(
+        gameoflife.printCells,
+        "Have you created and exported a `printCells` function?");
+      
+      assert(typeof gameoflife.printCells([[3,2]]) == "string", "Have you created a 'printCells' function that returns a string representation of the game state?");
+      assert(gameoflife.printCells([[3,2]]) == '▣\n', "Have you created a 'printCells' function that prints '▣' for each living cell, '▢' for each non-living cell and a newline character at the end of each row?");
+      assert(gameoflife.printCells([[3,2], [5,2]]) == '▣ ▢ ▣\n', "Have you created a 'printCells' function that prints '▣' for each living cell, '▢' for each non-living cell, a space in between each cell and a newline character at the end of each row?");
+      assert(gameoflife.printCells([[3,2],[2,3],[3,3],[3,4],[4,4]]) == '▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n');
+    });
+    
+  });
+
 
   // describe('Calculating the next state', ()=>{
   //   var start, next;

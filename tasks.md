@@ -26,9 +26,9 @@ Add a function `corners` that calculates the top-right and bottom-left coordinat
 
 ## Add a 'printCells' Function
 
-Add a function `printCells` that uses the `printCell` and `corners` functions created previously to log to the console a visualization of the game state. `printCells` takes one array parameter of cells. It should output the rectangle of cells defined by the `bottomLeft` and `topRight` values returned from `corners`. For each cell position, it should output the value returned from the `printCell` function. Print a space character between each cell in each row. 
+Add a function `printCells` that uses the `printCell` and `corners` functions created previously to build a string representation of the game state. `printCells` takes one array parameter of cells. It should output the rectangle of cells defined by the `bottomLeft` and `topRight` values returned from `corners`. For each cell position, it should output the value returned from the `printCell` function. Print a space character between each cell in each row. Print a newline character at the end of each row (including the last row).
 
-For example, `printCells([[3,2],[2,3],[3,3],[3,4],[4,4]])` should output
+For example, `printCells([[3,2],[2,3],[3,3],[3,4],[4,4]])` should return `"▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n"` and, `console.log(printCells([[3,2],[2,3],[3,3],[3,4],[4,4]]))` should output
 
 ```
 ▢ ▣ ▣

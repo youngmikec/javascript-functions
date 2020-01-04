@@ -68,30 +68,32 @@ const printCell = (cell, state) => {
 
 const printCells = (state) => {
     const {bottomLeft,topRight} = corners(state);
+    var accumulator = "";
     for (let y = topRight[1]; y >= bottomLeft[1]; y--) {
         let row = [];
         for (let x = bottomLeft[0]; x <= topRight[0]; x++) {
             row.push(printCell([x,y], state));
         }
-        console.log(row.join(' '));
+        accumulator += row.join(' ') + '\n';
     }
+    return accumulator;
 };
 
 const startPatterns = {
     rpentomino: [[3,2], [2,3],[3,3],[3,4],[4,4]],
-    glider: [[1,1], [2,1], [3,1], [3,2], [2,3]]
+    glider: [[1,1], [2,1], [3,1], [3,2], [2,3]],
+    square: [[1,1], [2,1], [2,1], [2,2]]
 };
 
-const iterate = (state, iterations) => {
-    if (iterations < 1) return;
-
-    printCells(state);
-    console.log();
-    iterate(calculateNext(state), iterations-1);
+const iterate = (states, iterations) => {
+    if (iterations < 1) return states;
+    states.push(calculateNext(states[states.length-1]));
+    return iterate(states, iterations-1);
 }
 
 const main = (pattern, iterations) => {
-    iterate(startPatterns[pattern], iterations);
+    const results = iterate([startPatterns[pattern]], iterations);
+    results.forEach((r) => console.log(printCells(r)));
 };
 
 const [pattern, iterations] = process.argv.slice(2);
