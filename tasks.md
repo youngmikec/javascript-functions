@@ -35,3 +35,6 @@ For example, `printCells([[3,2],[2,3],[3,3],[3,4],[4,4]])` should return `"▢ �
 ▣ ▣ ▢
 ▢ ▣ ▢
 ```
+
+## Add a 'calculateNext' Function
+
