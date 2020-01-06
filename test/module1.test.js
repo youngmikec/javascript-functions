@@ -204,6 +204,63 @@ describe("Conway's Game of Life", () => {
         && gameoflife.contains.call(neighborsOf3Comma4, [3,5])
         && gameoflife.contains.call(neighborsOf3Comma4, [4,5]),
         "Have you created a function 'getNeighborsOf' that returns the eight neighbors of the given cell?");
+      
+      const neighborsOfNeg1Neg1 = gameoflife.getNeighborsOf([-1,-1]);
+
+      assert(
+        gameoflife.contains.call(neighborsOfNeg1Neg1, [-2,-1])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [0,-1])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [-2,-2])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [-1,-2])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [0,-2])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [-2,0])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [-1,0])
+        && gameoflife.contains.call(neighborsOfNeg1Neg1, [0,0]),
+        "Have you created a function 'getNeighborsOf' that returns the eight neighbors of the given cell?");
+    });
+  });
+
+  describe("Finding living neighbors", () => {
+    it("Should have a getLivingNeighbors function. @getLivingNeighbors-function", () => {
+      assert(
+        gameoflife.getLivingNeighbors,
+        "Have you created and exported a 'getLivingNeighbors' function?");
+
+      const rPentomino = [[3,2], [2,3],[3,3],[3,4],[4,4]];
+
+      const rPentominoNeighborsOfFourThree = gameoflife.getLivingNeighbors([4,3], rPentomino);
+
+      assert(rPentominoNeighborsOfFourThree.length === 4, "Have you created a function 'getLivingNeighbors' that returns the living neighbors of the given cell?");
+
+      assert(
+        gameoflife.contains.call(rPentominoNeighborsOfFourThree, [4,4])
+        && gameoflife.contains.call(rPentominoNeighborsOfFourThree, [3,4])
+        && gameoflife.contains.call(rPentominoNeighborsOfFourThree, [3,3])
+        && gameoflife.contains.call(rPentominoNeighborsOfFourThree, [3,2]), "Have you created a function 'getLivingNeighbors' that returns the living neighbors of the given cell?");
+
+      assert(gameoflife.getLivingNeighbors([6,6], rPentomino).length === 0, "Have you created a function 'getLivingNeighbors' that returns the living neighbors of the given cell?");
+    });
+  });
+
+  function containsAll(targets = [], state) {
+    return targets.every((t) => gameoflife.contains.call(state, t));
+  }
+
+  describe("Calculating a cell's future state", () => {
+    it("Should have a willBeAlive function. @willBeAlive-function", () => {
+      assert(
+        gameoflife.willBeAlive,
+        "Have you created and exported a 'willBeAlive' function?");
+    
+      const rPentomino = [[3,2], [2,3],[3,3],[3,4],[4,4]];
+      const cells = [
+        [2,4], [3,4], [4,4],
+        [2,3], [3,3], [4,3],
+        [2,2], [3,2], [4,2]
+      ];
+      const nextGen = cells.filter((c) => gameoflife.willBeAlive(c, rPentomino));
+      assert(nextGen.length === 6, "Have you create a 'willBeAlive' function that calculates if a cell will be alive in the next game state?");
+      assert(containsAll([[2,2], [3,2], [2,3], [2,4], [3,4], [4,4]], nextGen), "Have you create a 'willBeAlive' function that calculates if a cell will be alive in the next game state?");
     });
   });
 
