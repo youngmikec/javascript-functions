@@ -16,7 +16,7 @@ const sum = ([x,y], [j,k]) => [x+j, y+k];
 const getNeighborsOf = ([x,y]) => {
     const neighborDeltas = [
         [-1,1],  [0,1],  [1,1],
-        [-1,0],  /* */,  [1,0],
+        [-1,0],  /* */   [1,0],
         [-1,-1], [0,-1], [1,-1]
     ];
     return neighborDeltas.map((d) => sum(d, [x,y]));
@@ -27,7 +27,7 @@ const getLivingNeighbors = (cell, state) => {
         .filter((n) => contains.bind(state)(n));
 };
 
-const isAlive = (cell, state) => {
+const willBeAlive = (cell, state) => {
     const livingNeighbors = getLivingNeighbors(cell, state);
 
     return (
@@ -56,7 +56,7 @@ const calculateNext = (state) => {
     let result = [];
     for (let y = topRight[1]+1; y >= bottomLeft[1]-1; y--) {
         for (let x = bottomLeft[0]-1; x <= topRight[0]+1; x++) {
-            result = result.concat(isAlive([x,y], state) ? [[x,y]] : []);
+            result = result.concat(willBeAlive([x,y], state) ? [[x,y]] : []);
         }
     }
     return result;
@@ -113,7 +113,7 @@ exports.contains = contains;
 exports.sum = sum;
 exports.getNeighborsOf = getNeighborsOf;
 exports.getLivingNeighbors = getLivingNeighbors;
-exports.isAlive = isAlive;
+exports.willBeAlive = willBeAlive;
 exports.corners = corners;
 exports.calculateNext = calculateNext;
 exports.printCell = printCell;

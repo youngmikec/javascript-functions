@@ -35,6 +35,21 @@ For example, `printCells([[3,2],[2,3],[3,3],[3,4],[4,4]])` should return `"▢ �
 ▣ ▣ ▢
 ▢ ▣ ▢
 ```
+## Add a 'getNeighborsOf' Function
+
+Add a function `getNeighborsOf` that returns an array containing all of the neighbors of a given cell. A cell always has exactly eight neighbors. Consider the cell `[2,2]`. 
+
+```
+[1,3] [2,3] [3,3]
+[1,2] [2,2] [3,2]
+[1,1] [2,1] [3,1]
+```
+
+Note that the neighbors of `[2,2]` are `[[1,1], [2,1], [3,1], [1,2], [3,2], [1,3], [2,3], [3,3]]`. The neighbors of a cell can be calculated by using the `sum` function created previously to add offsets to the cell. For example, the cell to the left of a given cell can be found by adding `[-1,0]`. Thus the cell to the left of [2,2] is `sum([2,2], [-1,0])`.
 
 ## Add a 'calculateNext' Function
 
+Add a function `calculateNext` that calculates the next state of the game from the current state of the game. The function should have a single parameter `state` that is an array containing all living cells (the current game state). The function should return an array containing all living cells in the next game state. A cell is alive in the next game state if and only if:
+
+* the cell has three living neighbors
+* the cell is currently alive and has two living neighbors

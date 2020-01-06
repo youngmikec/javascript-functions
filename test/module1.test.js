@@ -172,7 +172,7 @@ describe("Conway's Game of Life", () => {
     it("Should have a printCells function. @printCells-function", () => {
       assert(
         gameoflife.printCells,
-        "Have you created and exported a `printCells` function?");
+        "Have you created and exported a 'printCells' function?");
       
       assert(typeof gameoflife.printCells([[3,2]]) == "string", "Have you created a 'printCells' function that returns a string representation of the game state?");
       assert(gameoflife.printCells([[3,2]]) == '▣\n', "Have you created a 'printCells' function that prints '▣' for each living cell, '▢' for each non-living cell and a newline character at the end of each row?");
@@ -180,6 +180,31 @@ describe("Conway's Game of Life", () => {
       assert(gameoflife.printCells([[3,2],[2,3],[3,3],[3,4],[4,4]]) == '▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n');
     });
     
+  });
+
+  describe("Finding neighbors", () => {
+    it("Should have a getNeighborsOf function. @getNeighborsOf-function", () => {
+      assert(
+        gameoflife.getNeighborsOf,
+        "Have you created and exported a 'getNeighborsOf' function?");
+      
+      const neighborsOf3Comma4 = gameoflife.getNeighborsOf([3,4]);
+      
+      assert(
+        neighborsOf3Comma4.length === 8,
+        "Have you created a function 'getNeighborsOf' that returns the eight neighbors of the given cell?");
+
+      assert(
+        gameoflife.contains.call(neighborsOf3Comma4, [2,4])
+        && gameoflife.contains.call(neighborsOf3Comma4, [4,4])
+        && gameoflife.contains.call(neighborsOf3Comma4, [2,3])
+        && gameoflife.contains.call(neighborsOf3Comma4, [3,3])
+        && gameoflife.contains.call(neighborsOf3Comma4, [4,3])
+        && gameoflife.contains.call(neighborsOf3Comma4, [2,5])
+        && gameoflife.contains.call(neighborsOf3Comma4, [3,5])
+        && gameoflife.contains.call(neighborsOf3Comma4, [4,5]),
+        "Have you created a function 'getNeighborsOf' that returns the eight neighbors of the given cell?");
+    });
   });
 
 
