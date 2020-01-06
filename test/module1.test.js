@@ -259,21 +259,26 @@ describe("Conway's Game of Life", () => {
         [2,2], [3,2], [4,2]
       ];
       const nextGen = cells.filter((c) => gameoflife.willBeAlive(c, rPentomino));
-      assert(nextGen.length === 6, "Have you create a 'willBeAlive' function that calculates if a cell will be alive in the next game state?");
-      assert(containsAll([[2,2], [3,2], [2,3], [2,4], [3,4], [4,4]], nextGen), "Have you create a 'willBeAlive' function that calculates if a cell will be alive in the next game state?");
+      assert(nextGen.length === 6, "Have you created a 'willBeAlive' function that calculates if a cell will be alive in the next game state?");
+      assert(containsAll([[2,2], [3,2], [2,3], [2,4], [3,4], [4,4]], nextGen), "Have you created a 'willBeAlive' function that calculates if a cell will be alive in the next game state?");
     });
   });
 
+  describe('Calculating the next state', ()=>{
+    var start, next;
+    before(()=>{
+      start = gameoflife.seed([3,2], [2,3],[3,3],[3,4],[4,4]);
+      next = gameoflife.calculateNext(start);
+    });
 
-  // describe('Calculating the next state', ()=>{
-  //   var start, next;
-  //   before(()=>{
-  //     start = gameoflife.seed([3,2], [2,3],[3,3],[3,4],[4,4]);
-  //     next = gameoflife.calculateNext(start);
-  //   });
-
-  //   it('should calculate the correct next state. @calculateNext-correct-next-state', ()=>{
-  //     // todo
-  //   });
-  // });
+    it('should calculate the correct next state. @calculateNext-function', ()=>{
+      assert(
+        gameoflife.calculateNext,
+        "Have you created and exported a 'calculateNext' function?");
+    
+      assert(containsAll([[2,2], [3,2], [2,3], [2,4], [3,4], [4,4]], next), "Have you created a 'calculateNext' function that calculates the next game state?");
+      const rPentominoPlusTwo = gameoflife.calculateNext(next);
+      assert(containsAll([[3,5], [2,4], [3,4], [1,3], [4,3], [2,2], [3,2]], rPentominoPlusTwo), "Have you created a 'calculateNext' function that calculates the next game state?");
+    });
+  });
 });

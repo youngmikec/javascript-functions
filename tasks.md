@@ -67,10 +67,12 @@ Add a function `willBeAlive` that calculates if a given cell will be alive in th
 
 Use the function `getLivingNeighbors` created previously to determine how many living neighbors the cell currently has. Use the function `contains` created previously to determine if the cell is currently alive. Invoke the `contains` function by using its `call` method to supply the current game state as the `this` value within `contains` and call the function. 
 
-Ensure that 'willBeAlive' is exported from the module.
+Ensure that `willBeAlive` is exported from the module.
 
 ## Add a 'calculateNext' Function
 
 Add a function `calculateNext` that calculates the next state of the game from the current state of the game. The function should have a single parameter `state` that is an array containing all living cells (the current game state). The function should return an array containing all living cells in the next game state.
+
+Use the `corners` function previously created to establish the extent of the grid to be tested for the next game state. Be sure to extend the search space by one row or column in each direction. For example if `bottomLeft` is `[2,2]` and `topRight` is `[4,4]` then the grid to test for the next game state is from `[1,1]` to `[5,5]`. Use the previously created function `willBeAlive` to determine if a cell will be alive in the next game state. 
 
 Ensure that `calculateNext` is exported from the module.
