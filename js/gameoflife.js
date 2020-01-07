@@ -82,11 +82,12 @@ const printCells = (state) => {
 const startPatterns = {
     rpentomino: [[3,2], [2,3],[3,3],[3,4],[4,4]],
     glider: [[1,1], [2,1], [3,1], [3,2], [2,3]],
+    glideranchored: [[-2,-2], [-1,-2], [-2,-1], [-1,-1], [1,1], [2,1], [3,1], [3,2], [2,3]],
     square: [[1,1], [2,1], [2,1], [2,2]]
 };
 
 const iterate = (states, iterations) => {
-    if (iterations < 1) return states;
+    if (iterations < 1 || states.length === 0) return states;
     states.push(calculateNext(states[states.length-1]));
     return iterate(states, iterations-1);
 }
