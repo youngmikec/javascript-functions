@@ -264,14 +264,14 @@ describe("Conway's Game of Life", () => {
     });
   });
 
-  describe('Calculating the next state', ()=>{
+  describe("Calculating the next state", () => {
     var start, next;
     before(()=>{
       start = gameoflife.seed([3,2], [2,3],[3,3],[3,4],[4,4]);
       next = gameoflife.calculateNext(start);
     });
 
-    it('should calculate the correct next state. @calculateNext-function', ()=>{
+    it("Should have a calculateNext function. @calculateNext-function", () => {
       assert(
         gameoflife.calculateNext,
         "Have you created and exported a 'calculateNext' function?");
@@ -279,6 +279,52 @@ describe("Conway's Game of Life", () => {
       assert(containsAll([[2,2], [3,2], [2,3], [2,4], [3,4], [4,4]], next), "Have you created a 'calculateNext' function that calculates the next game state?");
       const rPentominoPlusTwo = gameoflife.calculateNext(next);
       assert(containsAll([[3,5], [2,4], [3,4], [1,3], [4,3], [2,2], [3,2]], rPentominoPlusTwo), "Have you created a 'calculateNext' function that calculates the next game state?");
+    });
+  });
+
+  describe("Calculating multiple game states", () => {
+    
+    it("Should have an iterate function. @iterate-function", () => {
+      assert(
+        gameoflife.iterate,
+        "Have you created and exported an 'iterate' function?");
+        
+      const states = gameoflife.iterate([gameoflife.startPatterns.square], 2);
+      assert(states.length === 3, "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll(gameoflife.startPatterns.square, states[0]), "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll(gameoflife.startPatterns.square, states[1]), "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll(gameoflife.startPatterns.square, states[2]), "Have you created an 'iterate' that calculates subsequent game states?");
+
+      const two = gameoflife.iterate([[[1,1],[2,1], [1,2]]],2);
+      assert(two.length === 3, "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll([[1,1],[2,1], [1,2], [2,2]], two[1]), "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll([[1,1],[2,1], [1,2], [2,2]], two[2]), "Have you created an 'iterate' that calculates subsequent game states?");
+
+      const rPentominoNext = gameoflife.iterate([gameoflife.startPatterns.rpentomino], 2);
+      assert(rPentominoNext.length === 3, "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll([[2,2], [3,2], [2,3], [2,4], [3,4], [4,4]], rPentominoNext[1]), "Have you created an 'iterate' that calculates subsequent game states?");
+      assert(containsAll([[3,5], [2,4], [3,4], [1,3], [4,3], [2,2], [3,2]], rPentominoNext[2]), "Have you created an 'iterate' that calculates subsequent game states?");
+    });
+  });
+
+  describe("Main function", () => {
+
+    it("Should have a main function. @main-function", () => {
+      assert(
+        gameoflife.main,
+        "Have you created and exported a 'main' function?");
+      
+      // monkey patch console.log
+      var results = "";
+      var oldLogger = console.log;
+      console.log = (i) => {
+        results += i;
+      };
+
+      gameoflife.main("rpentomino", 2);
+
+      assert(results == "▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n▣ ▣ ▣\n▣ ▢ ▢\n▣ ▣ ▢\n▢ ▢ ▣ ▢\n▢ ▣ ▣ ▢\n▣ ▢ ▢ ▣\n▢ ▣ ▣ ▢\n", "Have you created a 'main' function ?");
+      console.log = oldLogger;
     });
   });
 });

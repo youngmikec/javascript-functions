@@ -76,3 +76,37 @@ Add a function `calculateNext` that calculates the next state of the game from t
 Use the `corners` function previously created to establish the extent of the grid to be tested for the next game state. Be sure to extend the search space by one row or column in each direction. For example if `bottomLeft` is `[2,2]` and `topRight` is `[4,4]` then the grid to test for the next game state is from `[1,1]` to `[5,5]`. Use the previously created function `willBeAlive` to determine if a cell will be alive in the next game state. 
 
 Ensure that `calculateNext` is exported from the module.
+
+## Add an 'iterate' Function
+
+Add a function `iterate` that calculates new game states, based on a past game states. The function should have two parameters. The first parameter should be an array of previous game states, that is, an array of arrays of arrays. The second parameter should be an integer indicating how many new game states to calculate. The function should return an array of games states. 
+
+For example, if `iterate` is called with two past game states in the first parameter and the value `2` for the second parameter it will return an array with four game states, the two that were supplied and two more that were calculated. 
+
+The next game state can be calculated by using the `calculateNext` function previously defined, based upon the most recent game state.
+
+Ensure that `iterate` is exported from the module.
+
+## Add a 'main' Function
+
+Add a function `main` that calculates a given number of future states from a given starting states and prints them all to the console (including the initial state). The function should have two parameters. The first parameter should be a string containing the name of one of the game states in the `startPatterns` object, that is: rpentomino, glideranchored or square. The second parameter should be an integer indicating how many new game states to calculate. Each game state should be printed with a trailing new line character. 
+
+For example, `main("rpentomino", 2)` will print to the console:
+
+```
+▢ ▣ ▣
+▣ ▣ ▢
+▢ ▣ ▢
+
+▣ ▣ ▣
+▣ ▢ ▢
+▣ ▣ ▢
+
+▢ ▢ ▣ ▢
+▢ ▣ ▣ ▢
+▣ ▢ ▢ ▣
+▢ ▣ ▣ ▢
+
+```
+
+Use the `iterate` function created previously to calculate new game states. Ensure that `main` is exported from the module.
