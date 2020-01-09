@@ -164,7 +164,7 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported a `printCell` function?"
       );
 
-      const zeroCorners = (gameoflife.corners || (() => {}))();
+      const zeroCorners = ((gameoflife.corners || (() => ({topRight: [], bottomLeft: []})))()) || {topRight: [], bottomLeft: []};
       assert(
         gameoflife.same &&
           gameoflife.corners &&
@@ -261,7 +261,7 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported a 'getNeighborsOf' function?"
       );
 
-      const neighborsOf3Comma4 = gameoflife.getNeighborsOf([3, 4]);
+      const neighborsOf3Comma4 = gameoflife.getNeighborsOf([3, 4]) || [];
 
       assert(
         neighborsOf3Comma4.length === 8,
@@ -314,7 +314,7 @@ describe("Conway's Game of Life", () => {
       const rPentominoNeighborsOfFourThree = gameoflife.getLivingNeighbors(
         [4, 3],
         rPentomino
-      );
+      ) || [];
 
       assert(
         rPentominoNeighborsOfFourThree.length === 4,
@@ -440,7 +440,7 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported an 'iterate' function?"
       );
 
-      const states = gameoflife.iterate([gameoflife.startPatterns.square], 2);
+      const states = gameoflife.iterate([gameoflife.startPatterns.square], 2) || [];
       assert(
         states.length === 3,
         "Have you created an 'iterate' that calculates subsequent game states?"
