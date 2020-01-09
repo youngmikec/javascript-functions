@@ -89,7 +89,7 @@ Ensure that `iterate` is exported from the module.
 
 ## Add a 'main' Function
 
-Add a function `main` that calculates a given number of future states from a given starting states and prints them all to the console (including the initial state). The function should have two parameters. The first parameter should be a string containing the name of one of the game states in the `startPatterns` object, that is: rpentomino, glideranchored or square. The second parameter should be an integer indicating how many new game states to calculate. Each game state should be printed with a trailing new line character. 
+Add a function `main` that calculates a given number of future states from a given starting states and prints them all to the console (including the initial state). The function should have two parameters. The first parameter should be a string containing the name of one of the game states in the `startPatterns` object, that is: rpentomino, glider or square. The second parameter should be an integer indicating how many new game states to calculate. Each game state should be printed with a trailing new line character. 
 
 For example, `main("rpentomino", 2)` will print to the console:
 
