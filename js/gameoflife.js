@@ -11,16 +11,11 @@ function contains(cell) {
   return this.some(c => same(c, cell));
 }
 
-const sum = ([x, y], [j, k]) => [x + j, y + k];
-
-const getNeighborsOf = ([x, y]) => {
-  const neighborDeltas = [
-    [-1, 1],  [0, 1],  [1, 1],
-    [-1, 0],   /* */   [1, 0],
-    [-1, -1], [0, -1], [1, -1]
-  ];
-  return neighborDeltas.map(d => sum(d, [x, y]));
-};
+const getNeighborsOf = ([x, y]) => [
+    [x-1, y+1], [x, y+1], [x+1, y+1],
+    [x-1, y],             [x+1, y],
+    [x-1, y-1], [x, y-1], [x+1, y-1]
+];
 
 const getLivingNeighbors = (cell, state) => {
   return getNeighborsOf(cell).filter(n => contains.bind(state)(n));
@@ -79,14 +74,16 @@ const printCells = state => {
   return accumulator;
 };
 
-const iterate = (states, iterations) => {
-  if (iterations < 1 || states.length === 0) return states;
-  states.push(calculateNext(states[states.length - 1]));
-  return iterate(states, iterations - 1);
+const iterate = (state, iterations) => {
+    const states = [state];
+    for(let i = 0; i < iterations; i++) {
+        states.push(calculateNext(states[states.length-1]));
+    }
+    return states;
 };
 
 const main = (pattern, iterations) => {
-  const results = iterate([startPatterns[pattern]], iterations);
+  const results = iterate(startPatterns[pattern], iterations);
   results.forEach(r => console.log(printCells(r)));
 };
 
@@ -131,7 +128,6 @@ if (runAsScript) {
 exports.seed = seed;
 exports.same = same;
 exports.contains = contains;
-exports.sum = sum;
 exports.getNeighborsOf = getNeighborsOf;
 exports.getLivingNeighbors = getLivingNeighbors;
 exports.willBeAlive = willBeAlive;

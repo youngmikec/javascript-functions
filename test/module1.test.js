@@ -78,41 +78,6 @@ describe("Conway's Game of Life", () => {
     });
   });
 
-  describe("Sum function", () => {
-    it("Should have a `sum` function. @sum-function", () => {
-      assert(gameoflife.sum, "Have you created and exported a `sum` function?");
-
-      assert(
-        gameoflife.sum &&
-          gameoflife.same &&
-          gameoflife.same(gameoflife.sum([1, 2], [5, 7]), [6, 9]),
-        "Have you implemented a sum function that adds two cells?"
-      );
-      assert(
-        gameoflife.sum &&
-          gameoflife.same &&
-          gameoflife.same(gameoflife.sum([-1, 2], [5, -7]), [4, -5]),
-        "Have you implemented a sum function that handles negative coordinates?"
-      );
-
-      var sumNode;
-      esprima.parseModule(source, {}, function(node) {
-        if (node.type === "VariableDeclarator" && node.id.name === "sum") {
-          sumNode = node;
-        }
-      });
-      assert(sumNode, "Have you implemented an arrow function named `sum`?");
-      assert(
-        sumNode && sumNode.init.type === "ArrowFunctionExpression",
-        "Have you implemented an arrow function named `sum`?"
-      );
-      assert(
-        sumNode && sumNode.init.body.type === "ArrayExpression",
-        "Have you implemented an arrow function named `sum`?"
-      );
-    });
-  });
-
   describe("Printing a cell", () => {
     it("Should have a printCell function. @printCell-function", () => {
       assert(
@@ -293,6 +258,22 @@ describe("Conway's Game of Life", () => {
           gameoflife.contains.call(neighborsOfNeg1Neg1, [0, 0]),
         "Have you created a function 'getNeighborsOf' that returns the eight neighbors of the given cell?"
       );
+
+      var getNeighborsNode;
+      esprima.parseModule(source, {}, function(node) {
+        if (node.type === "VariableDeclarator" && node.id.name === "getNeighborsOf") {
+          getNeighborsNode = node;
+        }
+      });
+      assert(getNeighborsNode, "Have you implemented an arrow function named `getNeighborsOf`?");
+      assert(
+        getNeighborsNode && getNeighborsNode.init.type === "ArrowFunctionExpression",
+        "Have you implemented an arrow function named `getNeighborsOf`?"
+      );
+      assert(
+        getNeighborsNode && getNeighborsNode.init.body.type === "ArrayExpression",
+        "Have you implemented an arrow function named `getNeighborsOf`?"
+      );
     });
   });
 
@@ -440,7 +421,7 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported an 'iterate' function?"
       );
 
-      const states = gameoflife.iterate([gameoflife.startPatterns.square], 2) || [];
+      const states = gameoflife.iterate(gameoflife.startPatterns.square, 2) || [];
       assert(
         states.length === 3,
         "Have you created an 'iterate' that calculates subsequent game states?"
@@ -460,11 +441,9 @@ describe("Conway's Game of Life", () => {
 
       const two = gameoflife.iterate(
         [
-          [
-            [1, 1],
-            [2, 1],
-            [1, 2]
-          ]
+          [1, 1],
+          [2, 1],
+          [1, 2]
         ],
         2
       );
@@ -498,7 +477,7 @@ describe("Conway's Game of Life", () => {
       );
 
       const rPentominoNext = gameoflife.iterate(
-        [gameoflife.startPatterns.rpentomino],
+        gameoflife.startPatterns.rpentomino,
         2
       );
       assert(

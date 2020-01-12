@@ -8,7 +8,7 @@ We need to be able to test if two cells are the same. Implement the function nam
 
 A cell is represented as an array with two integer values. The first value indicates the cell's horizontal distance to the right of the origin ([0,0]). The second value indicates the cell's vertical distance above the origin. Thus, the origin ([0,0]) is the bottom-left of the grid system (although cells with negative coordinates are valid).
 
-
+![Cell coordinates](cells.png)
 
 ## Implement the 'contains' Function
 
@@ -16,19 +16,17 @@ The game state of the cells is represented by an array containing all living cel
 
 Implement the function named `contains` that tests if the supplied cell is alive in the passed game state. The cell to test for must be passed as a function parameter. The game state must be passed as the `this` value within the `contains` function. Note that this is not a recommended way to implement a function because it hides the state parameter from consumers. It is done here to demonstrate the language feature.
 
-## Implement the 'sum' Function
-
-Implement the single-line arrow function function named `sum` that adds together two cells. The first coordinate of the result is the sum of the first coordinates of the two array parameters. The second coordinate of the result is the sum of the second coordinates of the two array parameters. That is, [a,b] + [c,d] = [a+c, b+d].
-
 ## Implement the 'printCell' Function
 
 Implement the function `printCell` with two parameters. The first is a cell (the corresponding argument, for example, would be of the form `[x,y]`), and the second is a game state (array of cells). If the cell is alive in the game state the function returns ▣ ('\u25A3'), otherwise it returns ▢ ('\u25A2'). The `contains` function created previously is also an object. To determine if the cell is alive, invoke the `contains` function by calling its `call` method (`contains.call(...)`) to set the `contains` function's `this` value to the game state.
 
 ## Implement the 'corners' Function
 
-Implement the function `corners` that calculates the top-right and bottom-left coordinates of the smallest rectangle that contains all living cells. The function should have a single parameter which is the game state. If no argument is passed, the argument should default to an empty game state (`[]`) using a default parameter. The return value of the function should be an object with two properties, `topRight` and `bottomLeft`. For example, `{topRight: [x,y], bottomLeft: [x,y]}`. If there are no living cells, the `topRight` and `bottomLeft` should both be `[0,0]`.
+Implement the function `corners` that calculates the top-right and bottom-left coordinates of the smallest rectangle that contains all living cells. The function has a single parameter which is the game state. If no argument is passed, the argument should default to an empty game state (`[]`) using a default parameter. The return value of the function should be an object with two properties, `topRight` and `bottomLeft`. For example, `{topRight: [x,y], bottomLeft: [x,y]}`. If there are no living cells, the `topRight` and `bottomLeft` should both be `[0,0]`.
 
+For example, `corners([[1,2], [4,1]])` returns `{topRight: [4,2], bottomLeft: [1,1]}`.
 
+![Calculating corners](corners.png)
 
 ## Implement the 'printCells' Function
 
@@ -44,7 +42,7 @@ For example, `printCells([[3,2],[2,3],[3,3],[3,4],[4,4]])` should return `"▢ �
 
 ## Implement the 'getNeighborsOf' Function
 
-Implement the function `getNeighborsOf` that returns an array containing all of the neighbors of a given cell. A cell always has exactly eight neighbors. Consider the cell `[2,2]`. 
+Implement the single-line arrow function `getNeighborsOf` that returns an array containing all of the neighbors of a given cell. A cell always has exactly eight neighbors. Consider the cell `[2,2]`. 
 
 ```
 [1,3] [2,3] [3,3]
@@ -52,7 +50,7 @@ Implement the function `getNeighborsOf` that returns an array containing all of 
 [1,1] [2,1] [3,1]
 ```
 
-Note that the neighbors of `[2,2]` are `[[1,1], [2,1], [3,1], [1,2], [3,2], [1,3], [2,3], [3,3]]`. The neighbors of a cell can be calculated by using the `sum` function created previously to add offsets to the cell. For example, the cell to the left of a given cell can be found by adding `[-1,0]`. Thus the cell to the left of [2,2] is `sum([2,2], [-1,0])`.
+Note that the neighbors of `[2,2]` are `[[1,1], [2,1], [3,1], [1,2], [3,2], [1,3], [2,3], [3,3]]`.
 
 ## Implement the 'getLivingNeighbors' Function
 
@@ -75,9 +73,9 @@ Use the `corners` function previously created to establish the extent of the gri
 
 ## Implement the 'iterate' Function
 
-Implement the function `iterate` that calculates new game states, based on a past game states. The function should have two parameters. The first parameter should be an array of previous game states, that is, an array of arrays of arrays. The second parameter should be an integer indicating how many new game states to calculate. The function should return an array of games states. 
+Implement the function `iterate` that calculates new game states, based on a starting game state. The function should have two parameters. The first parameter should be a game state, that is, an array of living cells. The second parameter should be an integer indicating how many new game states to calculate. The function should return an array of games states.
 
-For example, if `iterate` is called with two past game states in the first parameter and the value `2` for the second parameter it will return an array with four game states, the two that were supplied and two more that were calculated. 
+For example, if `iterate` is called with a starting game state in the first parameter and the value `2` for the second parameter it will return an array with three game states, the starting game state and two more that were calculated.
 
 The next game state can be calculated by using the `calculateNext` function previously defined, based upon the most recent game state.
 
