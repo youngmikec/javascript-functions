@@ -4,9 +4,13 @@ In `gameoflife.js` implement a function named `seed` that returns its arguments 
 
 ## Implement the 'same' Function
 
-We need to be able to test if two cells are the same. Implement the function named `same` that accepts two cells (a cell is represented as an array with two integer values) and returns a Boolean indicating if the two cells are the same. Ensure that `same` is exported from the module.
+We need to be able to test if two cells are the same. Implement the function named `same` that accepts two cells and returns a Boolean indicating if the two cells are the same. 
 
-## Implement a 'contains' Function
+A cell is represented as an array with two integer values. The first value indicates the cell's horizontal distance to the right of the origin ([0,0]). The second value indicates the cell's vertical distance above the origin. Thus, the origin ([0,0]) is the bottom-left of the grid system (although cells with negative coordinates are valid).
+
+
+
+## Implement the 'contains' Function
 
 The game state of the cells is represented by an array containing all living cells. For example, `[[3,4], [4,4]]`. All other cells are not alive. 
 
@@ -14,7 +18,7 @@ Implement the function named `contains` that tests if the supplied cell is alive
 
 ## Implement the 'sum' Function
 
-Implement the single-line arrow function function named `sum` that adds together two cells. The first coordinate of the result is the sum of the first coordinates of the two summed cells. The second coordinate of the result is the sum of the second coordinates of the two summed cells. That is, [a,b] + [c,d] = [a+c, b+d].
+Implement the single-line arrow function function named `sum` that adds together two cells. The first coordinate of the result is the sum of the first coordinates of the two array parameters. The second coordinate of the result is the sum of the second coordinates of the two array parameters. That is, [a,b] + [c,d] = [a+c, b+d].
 
 ## Implement the 'printCell' Function
 
@@ -22,7 +26,9 @@ Implement the function `printCell` with two parameters. The first is a cell (the
 
 ## Implement the 'corners' Function
 
-Implement the function `corners` that calculates the top-right and bottom-left coordinates of the rectangle that contains all living cells. The function should have a single parameter which is the game state. If no argument is passed, the argument should default to an empty game state (`[]`) using a default parameter. The return value of the function should be an object with two properties, `topRight` and `bottomLeft`. For example, `{topRight: [x,y], bottomLeft: [x,y]}`. If there are no living cells, the `topRight` and `bottomLeft` should both be `[0,0]`.
+Implement the function `corners` that calculates the top-right and bottom-left coordinates of the smallest rectangle that contains all living cells. The function should have a single parameter which is the game state. If no argument is passed, the argument should default to an empty game state (`[]`) using a default parameter. The return value of the function should be an object with two properties, `topRight` and `bottomLeft`. For example, `{topRight: [x,y], bottomLeft: [x,y]}`. If there are no living cells, the `topRight` and `bottomLeft` should both be `[0,0]`.
+
+
 
 ## Implement the 'printCells' Function
 
