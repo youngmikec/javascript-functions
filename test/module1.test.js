@@ -2,6 +2,12 @@ const esprima = require("esprima");
 const gameoflife = require("../js/gameoflife.js");
 
 describe("Conway's Game of Life", () => {
+  const trimOfWhitespace = (s) => s.replace(/\s/g, '');
+
+  function containsAll(targets = [], state) {
+    return targets.every(t => gameoflife.contains.call(state, t));
+  }
+
   describe("Seed function", () => {
     it("Should add a `seed` function. @seed-function", () => {
       assert(
@@ -31,17 +37,18 @@ describe("Conway's Game of Life", () => {
           sameNode = node;
         }
       });
-      assert(
-        sameNode.params.length === 2,
+      assert.equal(
+        sameNode.params.length, 
+        2,
         "Have you created a `same` function with two arguments?"
       );
 
       assert(
-        gameoflife.same && gameoflife.same([1, 2], [1, 2]),
+        gameoflife.same([1, 2], [1, 2]),
         "Have you created a `same` function that returns true if the two point parameters are the same?"
       );
       assert(
-        gameoflife.same && !gameoflife.same([1, 2], [5, 2]),
+        !gameoflife.same([1, 2], [5, 2]),
         "Have you created a `same` function that returns false if the two point parameters are not the same?"
       );
     });
@@ -59,15 +66,13 @@ describe("Conway's Game of Life", () => {
         [3, 4],
         [4, 4]
       ]);
-      assert(
-        gameoflife.contains &&
+      assert(        
           boundContains([1, 2]) &&
           boundContains([3, 4]) &&
           boundContains([4, 4]),
         "Have you implemented a check that the passed cell is in the passed game state?"
       );
       assert(
-        gameoflife.contains &&
           !(
             boundContains([5, 6]) ||
             boundContains([2, 1]) ||
@@ -85,26 +90,28 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported a `printCell` function?"
       );
 
-      assert(
-        gameoflife.printCell &&
-          gameoflife.printCell(
+      assert.equal(
+        trimOfWhitespace(gameoflife.printCell(
             [1, 1],
             [
               [1, 1],
               [2, 2]
             ]
-          ) == "\u25A3",
+          )
+        ),
+        "\u25A3",
         "Have you returned '\u25A3' for living cells?"
       );
-      assert(
-        gameoflife.printCell &&
-          gameoflife.printCell(
+      assert.equal(
+        trimOfWhitespace(gameoflife.printCell(
             [1, 2],
             [
               [1, 1],
               [2, 2]
             ]
-          ) == "\u25A2",
+          )
+         ),
+         "\u25A2",
         "Have you returned '\u25A2' for non-living cells?"
       );
     });
@@ -192,29 +199,29 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported a 'printCells' function?"
       );
 
-      assert(
-        typeof gameoflife.printCells([[3, 2]]) == "string",
+      assert.equal(
+        typeof gameoflife.printCells([[3, 2]]), "string",
         "Have you created a 'printCells' function that returns a string representation of the game state?"
       );
-      assert(
-        gameoflife.printCells([[3, 2]]) == "▣\n",
+      assert.equal(trimOfWhitespace(gameoflife.printCells([[3, 2]])), "▣",
         "Have you created a 'printCells' function that prints '▣' for each living cell, '▢' for each non-living cell and a newline character at the end of each row?"
       );
-      assert(
-        gameoflife.printCells([
+      assert.equal(trimOfWhitespace(gameoflife.printCells([
           [3, 2],
           [5, 2]
-        ]) == "▣ ▢ ▣\n",
+        ])), trimOfWhitespace("▣ ▢ \n ▣\n"),
         "Have you created a 'printCells' function that prints '▣' for each living cell, '▢' for each non-living cell, a space in between each cell and a newline character at the end of each row?"
       );
       assert(
-        gameoflife.printCells([
+        trimOfWhitespace(gameoflife.printCells([
           [3, 2],
           [2, 3],
           [3, 3],
           [3, 4],
           [4, 4]
-        ]) == "▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n"
+        ])), 
+        "▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n",
+        "Have you created a 'printCells' function that prints '▣' for each living cell, '▢' for each non-living cell, a space in between each cell and a newline character at the end of each row?"
       );
     });
   });
@@ -297,8 +304,7 @@ describe("Conway's Game of Life", () => {
         rPentomino
       ) || [];
 
-      assert(
-        rPentominoNeighborsOfFourThree.length === 4,
+      assert.equal(rPentominoNeighborsOfFourThree.length, 4,
         "Have you created a function 'getLivingNeighbors' that returns the living neighbors of the given cell?"
       );
 
@@ -310,16 +316,12 @@ describe("Conway's Game of Life", () => {
         "Have you created a function 'getLivingNeighbors' that returns the living neighbors of the given cell?"
       );
 
-      assert(
-        gameoflife.getLivingNeighbors([6, 6], rPentomino).length === 0,
+      assert.equal(
+        gameoflife.getLivingNeighbors([6, 6], rPentomino).length, 0,
         "Have you created a function 'getLivingNeighbors' that returns the living neighbors of the given cell?"
       );
     });
   });
-
-  function containsAll(targets = [], state) {
-    return targets.every(t => gameoflife.contains.call(state, t));
-  }
 
   describe("Calculating a cell's future state", () => {
     it("Should have a willBeAlive function. @willBeAlive-function", () => {
@@ -347,8 +349,8 @@ describe("Conway's Game of Life", () => {
         [4, 2]
       ];
       const nextGen = cells.filter(c => gameoflife.willBeAlive(c, rPentomino));
-      assert(
-        nextGen.length === 6,
+      assert.equal(
+        nextGen.length, 6,
         "Have you created a 'willBeAlive' function that calculates if a cell will be alive in the next game state?"
       );
       assert(
@@ -422,8 +424,8 @@ describe("Conway's Game of Life", () => {
       );
 
       const states = gameoflife.iterate(gameoflife.startPatterns.square, 2) || [];
-      assert(
-        states.length === 3,
+      assert.equal(
+        states.length, 3,
         "Have you created an 'iterate' that calculates subsequent game states?"
       );
       assert(
@@ -447,8 +449,8 @@ describe("Conway's Game of Life", () => {
         ],
         2
       );
-      assert(
-        two.length === 3,
+      assert.equal(
+        two.length, 3,
         "Have you created an 'iterate' that calculates subsequent game states?"
       );
       assert(
@@ -480,8 +482,8 @@ describe("Conway's Game of Life", () => {
         gameoflife.startPatterns.rpentomino,
         2
       );
-      assert(
-        rPentominoNext.length === 3,
+      assert.equal(
+        rPentominoNext.length, 3,
         "Have you created an 'iterate' that calculates subsequent game states?"
       );
       assert(
@@ -516,6 +518,16 @@ describe("Conway's Game of Life", () => {
     });
   });
 
+  const withMonkeyPatchedLog = (action, logger) => {
+    const realLogger = console.log;
+    console.log = logger;
+    try {
+      action();
+    } finally {
+      console.log = realLogger;
+    }
+  };
+
   describe("Main function", () => {
     it("Should have a main function. @main-function", () => {
       assert(
@@ -523,21 +535,20 @@ describe("Conway's Game of Life", () => {
         "Have you created and exported a 'main' function?"
       );
 
-      // monkey patch console.log
       var results = "";
-      var oldLogger = console.log;
-      console.log = i => {
+      const logger = (i) => {
         results += i;
       };
 
-      gameoflife.main("rpentomino", 2);
+      // monkey patch console.log
+      withMonkeyPatchedLog(() => {
+        gameoflife.main("rpentomino", 2);
+      }, logger);
 
-      assert(
-        results ==
-          "▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n▣ ▣ ▣\n▣ ▢ ▢\n▣ ▣ ▢\n▢ ▢ ▣ ▢\n▢ ▣ ▣ ▢\n▣ ▢ ▢ ▣\n▢ ▣ ▣ ▢\n",
+      assert.equal(trimOfWhitespace(results), 
+          trimOfWhitespace("▢ ▣ ▣\n▣ ▣ ▢\n▢ ▣ ▢\n▣ ▣ ▣\n▣ ▢ ▢\n▣ ▣ ▢\n▢ ▢ ▣ ▢\n▢ ▣ ▣ ▢\n▣ ▢ ▢ ▣\n▢ ▣ ▣ ▢\n"),
         "Have you created a 'main' function ?"
       );
-      console.log = oldLogger;
     });
   });
 });
