@@ -2,7 +2,7 @@ const esprima = require("esprima");
 const gameoflife = require("../js/gameoflife.js");
 
 describe("Conway's Game of Life", () => {
-  const trimOfWhitespace = (s) => s.replace(/\s/g, '');
+  const trimOfWhitespace = (s) => typeof s == "undefined" ? "" : s.replace(/\s/g, '');
 
   function containsAll(targets = [], state) {
     return targets.every(t => gameoflife.contains.call(state, t));
