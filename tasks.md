@@ -54,7 +54,7 @@ Note that the neighbors of `[2,2]` are `[[1,1], [2,1], [3,1], [1,2], [3,2], [1,3
 
 ## Complete the 'getLivingNeighbors' Function
 
-Complete the function `getLivingNeighbors` that returns the living neighbors of a given cell within a given game state. The function has two parameters. The first is a cell (the corresponding argument, for example, would be of the form `[x,y]`), and the second is a game state (array of cells). The function should return an array containing all living cells that are neighbors of the cell that is the first function parameter. Use the `contains` function completed previously to check if a neighboring cell is alive. Call `contains` by first using its `bind` method to set the current game state as the value of `this` within `contains`. 
+Complete the function `getLivingNeighbors` that returns the living neighbors of a given cell within a given game state. The function has two parameters. The first is a cell (the corresponding argument, for example, would be of the form `[x,y]`), and the second is a game state (array of cells). The function should return an array containing all living cells that are neighbors of the cell that is the first function parameter. Use the `contains` function completed previously to check if a neighboring cell is alive. Call `contains` by first using its `bind` method to set the current game state as the value of `this` within `contains`.
 
 ## Complete the 'willBeAlive' Function
 

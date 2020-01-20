@@ -118,9 +118,8 @@ describe("Conway's Game of Life", () => {
   });
 
   describe("Finding the corners", () => {
-    var corners;
-    before(() => {
-      corners = gameoflife.corners([
+    it("Should have a corners function. @corners-function", () => {
+      const corners = gameoflife.corners([
         [2, 3],
         [2, 1],
         [4, 3],
@@ -128,12 +127,9 @@ describe("Conway's Game of Life", () => {
         [2, 1],
         [3, 1]
       ]);
-    });
-
-    it("Should have a corners function. @corners-function", () => {
       assert(
         gameoflife.corners,
-        "Have you created and exported a `printCell` function?"
+        "Have you created and exported a `corners` function?"
       );
 
       const zeroCorners = ((gameoflife.corners || (() => ({topRight: [], bottomLeft: []})))()) || {topRight: [], bottomLeft: []};
