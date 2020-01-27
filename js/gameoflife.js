@@ -63,7 +63,7 @@ const willBeAlive = (cell, state) => {
   );
 };
 
-const calculateNext = state => {
+const calculateNext = (state) => {
   const { bottomLeft, topRight } = corners(state);
   let result = [];
   for (let y = topRight[1] + 1; y >= bottomLeft[1] - 1; y--) {
