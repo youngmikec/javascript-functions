@@ -261,22 +261,6 @@ describe("Conway's Game of Life", () => {
           gameoflife.contains.call(neighborsOfNeg1Neg1, [0, 0]),
         "Have you created a function 'getNeighborsOf' that returns the eight neighbors of the given cell?"
       );
-
-      var getNeighborsNode;
-      esprima.parseModule(source, {}, function(node) {
-        if (node.type === "VariableDeclarator" && node.id.name === "getNeighborsOf") {
-          getNeighborsNode = node;
-        }
-      });
-      assert(getNeighborsNode, "Have you implemented an arrow function named `getNeighborsOf`?");
-      assert(
-        getNeighborsNode && getNeighborsNode.init.type === "ArrowFunctionExpression",
-        "Have you implemented an arrow function named `getNeighborsOf`?"
-      );
-      assert(
-        getNeighborsNode && getNeighborsNode.init.body.type === "ArrayExpression",
-        "Have you implemented an arrow function named `getNeighborsOf`?"
-      );
     });
   });
 
