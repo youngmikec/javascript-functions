@@ -367,18 +367,13 @@ describe("Conway's Game of Life", () => {
   });
 
   describe("Calculating the next state", () => {
-    var start, next;
-    before(() => {
-      start = gameoflife.seed([3, 2], [2, 3], [3, 3], [3, 4], [4, 4]);
-      next = gameoflife.calculateNext(start);
-    });
-
     it("Should have a calculateNext function. @calculateNext-function", () => {
       assert(
         gameoflife.calculateNext,
         "Have you created and exported a 'calculateNext' function?"
-      );
-
+        );
+      const next = gameoflife.calculateNext(gameoflife.seed([3, 2], [2, 3], [3, 3], [3, 4], [4, 4]));
+        
       assert(
         containsAll(
           [
