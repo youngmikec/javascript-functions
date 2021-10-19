@@ -98,7 +98,10 @@ const iterate = (state, iterations) => {
   return states;
 };
 
-const main = (pattern, iterations) => {};
+const main = (pattern, iterations) => {
+  let results = iterate(startPatterns[pattern], iterations);
+  results.forEach( r => console.log(printCells(r)));
+};
 
 const startPatterns = {
     rpentomino: [
@@ -126,6 +129,8 @@ const startPatterns = {
       [2, 2]
     ]
   };
+
+  main('rpentomino', 3);
   
   const [pattern, iterations] = process.argv.slice(2);
   const runAsScript = require.main === module;
@@ -137,6 +142,8 @@ const startPatterns = {
       console.log("Usage: node js/gameoflife.js rpentomino 50");
     }
   }
+
+
   
   exports.seed = seed;
   exports.same = same;
