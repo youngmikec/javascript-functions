@@ -130,7 +130,6 @@ const startPatterns = {
     ]
   };
 
-  main('rpentomino', 3);
   
   const [pattern, iterations] = process.argv.slice(2);
   const runAsScript = require.main === module;
